@@ -6,4 +6,5 @@ import 'package:musix_admin/repos/repos.dart';
 final getIt = GetIt.instance;
 FutureOr<void> registerDependency() async {
   getIt.registerLazySingleton<UserRepo>(() => UserRepo());
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo());
 }

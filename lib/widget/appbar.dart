@@ -8,14 +8,15 @@ import '../states/states.dart';
 import '../views/views.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppbar({Key? key}) : super(key: key);
+  final String title;
+  const CustomAppbar({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'Dashboard',
-        style: TextStyle(
+      title: Text(
+        title,
+        style: const TextStyle(
           fontWeight: FontWeight.w700,
           fontSize: 28,
           color: Colors.white,
@@ -28,7 +29,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             if (state.status == Status.success) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const SignInScreen()),
-                (Route<dynamic> route) => route.isFirst,
+                (Route<dynamic> route) => false,
               );
             }
           },
