@@ -38,7 +38,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(status: Status.idle));
   }
 
-  FutureOr<void> _logout(LogoutEvent event, Emitter<UserState> emit) {
-    emit(const UserState(status: Status.idle));
+  FutureOr<void> _logout(LogoutEvent event, Emitter<UserState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    try {
+      await userRepo.logout(state.user!.token);
+      emit(state.copyWith(status: Status.success));
+
+      emit(const UserState(status: Status.idle));
+      return;
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        error: e.toString(),
+      ));
+
+      emit(state.copyWith(status: Status.idle));
+    }
   }
 }

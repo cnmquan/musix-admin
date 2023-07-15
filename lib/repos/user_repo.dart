@@ -26,4 +26,20 @@ class UserRepo extends InitialRepo {
       throw Exception(e.response?.data["msg"] ?? exception);
     }
   }
+
+  Future<bool> logout(String token) async {
+    const url = '${Env.serverUrl}/auth/logout';
+
+    try {
+      await dio.get(
+        url,
+        options: Options(
+          headers: headerApplicationJson(token: token),
+        ),
+      );
+      return true;
+    } on DioException catch (e) {
+      throw Exception(e.response?.data["msg"] ?? exception);
+    }
+  }
 }

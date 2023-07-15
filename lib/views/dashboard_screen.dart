@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'views.dart';
+import 'package:musix_admin/widget/appbar.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -9,29 +8,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Dashboard',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 28,
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const SignInScreen()));
-              },
-              icon: const Icon(
-                Icons.exit_to_app_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+        appBar: CustomAppbar(),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(12),
           child: Wrap(
