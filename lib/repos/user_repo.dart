@@ -17,6 +17,7 @@ class UserRepo extends InitialRepo {
       final response = await dio.post(url, data: data);
       final responseData = response.data;
       return User(
+        id: responseData["data"]?["user"]?["id"],
         username: responseData["data"]?["user"]?["username"],
         password: password,
         name: responseData["data"]?["user"]?["profile"]?["fullName"],

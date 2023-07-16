@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musix_admin/actions/actions.dart';
+import 'package:musix_admin/blocs/blocs.dart';
+import 'package:musix_admin/views/user_manager_screen.dart';
 import 'package:musix_admin/widget/appbar.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -8,7 +12,9 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppbar(),
+        appBar: const CustomAppbar(
+          title: 'Dashboard',
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(12),
           child: Wrap(
@@ -44,7 +50,11 @@ class DashboardScreen extends StatelessWidget {
               DashboardCard(
                 title: 'User Manager',
                 image: 'assets/user_manage.jpg',
-                onTap: () {},
+                onTap: () {
+                  context.read<ProfilesBloc>().add(const LoadProfilesEvent());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const UserManagerScreen()));
+                },
               ),
             ],
           ),

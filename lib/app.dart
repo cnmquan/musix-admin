@@ -15,11 +15,24 @@ class MusicAdminApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider<UserBloc>(
+        lazy: false,
         create: (context) => UserBloc(
           initialState: const UserState(
             status: Status.idle,
           ),
           userRepo: getIt.get<UserRepo>(),
+        ),
+      ),
+      BlocProvider<ProfilesBloc>(
+        lazy: false,
+        create: (context) => ProfilesBloc(
+          initialState: const ProfileState(
+            key: 'Global',
+            status: Status.idle,
+            profiles: [],
+          ),
+          profileRepo: getIt.get<ProfileRepo>(),
+          userBloc: context.read<UserBloc>(),
         ),
       ),
     ], child: const MusicAdminAppView());

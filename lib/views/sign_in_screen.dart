@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:musix_admin/blocs/blocs.dart';
 import 'package:musix_admin/states/states.dart';
 import 'package:musix_admin/utils/utils.dart';
@@ -144,26 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 BlocListener<UserBloc, UserState>(
                   listener: (context, state) {
                     if (state.status == Status.loading) {
-                      showDialog(
-                        context: context,
-                        barrierColor: Colors.black12,
-                        builder: (context) {
-                          return Dialog(
-                            backgroundColor: Colors.transparent,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  SpinKitChasingDots(
-                                    color: Colors.white70,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                      buildShowDialog(context);
                     } else if (state.status == Status.success) {
                       Future.delayed(const Duration(milliseconds: 100),
                               () => Navigator.of(context).maybePop())
