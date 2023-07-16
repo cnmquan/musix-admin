@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musix_admin/actions/actions.dart';
 import 'package:musix_admin/blocs/blocs.dart';
-import 'package:musix_admin/views/user_manager.dart';
+import 'package:musix_admin/views/user_manager_screen.dart';
 import 'package:musix_admin/widget/appbar.dart';
 
 class DashboardScreen extends StatelessWidget {

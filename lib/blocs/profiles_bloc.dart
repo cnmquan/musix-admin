@@ -20,6 +20,8 @@ class ProfilesBloc extends Bloc<ProfileEvent, ProfileState> {
       }
     });
     on<LoadProfilesEvent>(_loadProfiles);
+    on<SetProfileAdminEvent>(_setProfileAdmin);
+    on<DisableProfileEvent>(_disableProfile);
   }
 
   final UserBloc userBloc;
@@ -29,11 +31,65 @@ class ProfilesBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> _loadProfiles(
       LoadProfilesEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(
+      key: 'Global',
       status: Status.loading,
     ));
-    print(token);
     try {
       final profiles = await profileRepo.getProfiles(token!);
+      emit(state.copyWith(
+        status: Status.success,
+        profiles: profiles,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        error: e.toString(),
+      ));
+    }
+
+    emit(state.copyWith(status: Status.idle));
+  }
+
+  FutureOr<void> _setProfileAdmin(
+      SetProfileAdminEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(
+      status: Status.loading,
+      key: 'SetAdmin',
+    ));
+
+    try {
+      final profile = await profileRepo.createAdmin(
+        token: token!,
+        username: event.username,
+        password: event.password,
+        name: event.name,
+      );
+      final profiles = state.profiles;
+      profiles.add(profile);
+      emit(state.copyWith(
+        status: Status.success,
+        profiles: profiles,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: Status.error,
+        error: e.toString(),
+      ));
+    }
+
+    emit(state.copyWith(status: Status.idle, key: 'Global'));
+  }
+
+  FutureOr<void> _disableProfile(
+      DisableProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(state.copyWith(
+      status: Status.loading,
+    ));
+    try {
+      final profile = await profileRepo.disableUser(event.id, token!);
+      final profiles = state.profiles;
+      profiles[profiles.indexWhere((element) => element.id == profile.id)] =
+          profile;
       emit(state.copyWith(
         status: Status.success,
         profiles: profiles,

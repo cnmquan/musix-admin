@@ -27,6 +27,7 @@ class MusicAdminApp extends StatelessWidget {
         lazy: false,
         create: (context) => ProfilesBloc(
           initialState: const ProfileState(
+            key: 'Global',
             status: Status.idle,
             profiles: [],
           ),
