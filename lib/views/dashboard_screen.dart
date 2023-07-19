@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musix_admin/actions/actions.dart';
 import 'package:musix_admin/blocs/blocs.dart';
+import 'package:musix_admin/views/post_manager_screen.dart';
 import 'package:musix_admin/views/user_manager_screen.dart';
 import 'package:musix_admin/widget/appbar.dart';
 
@@ -40,7 +41,11 @@ class DashboardScreen extends StatelessWidget {
               DashboardCard(
                 title: 'Post Manager',
                 image: 'assets/report_manage.jpg',
-                onTap: () {},
+                onTap: () {
+                  context.read<PostsBloc>().add(const GetPostsEvent());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PostManagerScreen()));
+                },
               ),
               DashboardCard(
                 title: 'Comment Manager',
