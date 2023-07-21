@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musix_admin/blocs/blocs.dart';
 import 'package:musix_admin/states/states.dart';
+import 'package:musix_admin/views/views.dart';
 import 'package:musix_admin/widget/custom_video_player.dart';
 
 import '../widget/appbar.dart';
@@ -56,6 +57,10 @@ class PostManagerScreen extends StatelessWidget {
                   DataColumn2(
                     label: Text('Comments'),
                   ),
+                  DataColumn2(
+                    label: SizedBox.shrink(),
+                    fixedWidth: 20,
+                  ),
                 ],
                 rows: List<DataRow>.generate(state.posts.length, (index) {
                   final post = state.posts[index];
@@ -86,11 +91,17 @@ class PostManagerScreen extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return Dialog(
-                                  child: Image.network(
-                                    post.thumbnailUrl,
-                                    width: 200,
-                                    height: 200,
-                                    fit: BoxFit.fitWidth,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
+                                      post.thumbnailUrl,
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                   ),
                                 );
                               });
@@ -103,9 +114,11 @@ class PostManagerScreen extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                   child: CustomVideoPlayer(
                                     dataUrl: post.fileUrl,
-                                    thumbnailUrl: post.thumbnailUrl,
                                   ),
                                 );
                               });
@@ -117,6 +130,10 @@ class PostManagerScreen extends StatelessWidget {
                       DataCell(
                         Text('${post.comments.length}'),
                       ),
+                      DataCell(Icon(Icons.book), onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => PostScreen(post: post)));
+                      })
                     ],
                   );
                 }),

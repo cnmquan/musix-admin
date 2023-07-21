@@ -8,10 +8,8 @@ class CustomVideoPlayer extends StatefulWidget {
   const CustomVideoPlayer({
     Key? key,
     required this.dataUrl,
-    required this.thumbnailUrl,
   }) : super(key: key);
   final String dataUrl;
-  final String thumbnailUrl;
   @override
   State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
 }
@@ -25,12 +23,38 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   Widget buildVideoPlayer() => Chewie(controller: chewieController);
 
   @override
+  void initState() {
+    setChewieVideo();
+    super.initState();
+  }
+
+  setChewieVideo() async {
+    chewieController = await buildChewieController(
+      dataUrl: widget.dataUrl,
+    );
+    setState(() {
+      isStartPlayingVideo = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!isStartPlayingVideo) {
-      return _buildThumbnail();
+      return const SizedBox(
+        height: 200,
+        child: Center(
+          child: CircularProgressIndicator(
+            color: Colors.lightGreen,
+          ),
+        ),
+      );
     }
     return chewieController.videoPlayerController.value.isInitialized
-        ? Container(color: Colors.black, child: buildVideoPlayer())
+        ? Container(
+            color: Colors.black,
+            height: 200,
+            child: buildVideoPlayer(),
+          )
         : const SizedBox(
             height: 200,
             child: Center(
@@ -39,37 +63,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
               ),
             ),
           );
-  }
-
-  Container _buildThumbnail() {
-    return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(widget.thumbnailUrl), fit: BoxFit.fill),
-        ),
-        child: SizedBox(
-          width: double.infinity,
-          child: Stack(
-            children: [
-              Align(
-                  alignment: Alignment.center,
-                  child: CenterPlayButton(
-                      backgroundColor: Colors.black54,
-                      iconColor: Colors.white,
-                      onPressed: () async {
-                        chewieController = await buildChewieController(
-                          dataUrl: widget.dataUrl,
-                        );
-                        setState(() {
-                          isStartPlayingVideo = true;
-                        });
-                      },
-                      show: true,
-                      isPlaying: false,
-                      isFinished: false))
-            ],
-          ),
-        ));
   }
 }
 
