@@ -46,6 +46,7 @@ class MusicAdminAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Music Admin',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(
         useMaterial3: true,
       ),
