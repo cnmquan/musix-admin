@@ -19,6 +19,8 @@ dependencies:
   intl: ^0.18.1
   dio: ^5.2.1+1
   data_table_2: ^2.4.2
+  chewie: ^1.7.0
+  video_player: ^2.7.0
 
 dev_dependencies:
   flutter_test:

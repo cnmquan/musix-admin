@@ -35,6 +35,18 @@ class MusicAdminApp extends StatelessWidget {
           userBloc: context.read<UserBloc>(),
         ),
       ),
+      BlocProvider<PostsBloc>(
+        lazy: false,
+        create: (context) => PostsBloc(
+          initialState: const PostState(
+            key: 'Global',
+            status: Status.idle,
+            posts: [],
+          ),
+          postRepo: getIt.get<PostRepo>(),
+          userBloc: context.read<UserBloc>(),
+        ),
+      ),
     ], child: const MusicAdminAppView());
   }
 }
