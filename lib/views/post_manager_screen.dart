@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musix_admin/actions/actions.dart';
 import 'package:musix_admin/blocs/blocs.dart';
 import 'package:musix_admin/states/states.dart';
 import 'package:musix_admin/views/views.dart';
@@ -148,6 +149,9 @@ class PostManagerScreen extends StatelessWidget {
                             .read<ReportPostBloc>()
                             .add(GetReportsByPostIdEvent(post.id));
 
+                        context
+                            .read<CommentsBloc>()
+                            .add(GetCommentByPostEvent(post.id));
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => PostScreen(post: post)));
                       })
