@@ -15,8 +15,8 @@ class Post extends Equatable {
   final List<String> likeBy;
   final String thumbnailUrl;
 
-  // Status: BLOCK, WARNING, ACTIVE
-  final String status;
+  // Status: BLOCK, OPEN
+  final String postStatus;
 
   const Post(
       {required this.id,
@@ -32,7 +32,7 @@ class Post extends Equatable {
       this.lastModified,
       required this.likeBy,
       required this.comments,
-      this.status = "ACTIVE"});
+      this.postStatus = "OPEN"});
 
   Post copyWith({
     String? id,
@@ -48,7 +48,7 @@ class Post extends Equatable {
     List<String>? likeBy,
     String? thumbnailUrl,
     String? thumbnailId,
-    String? status,
+    String? postStatus,
   }) {
     return Post(
       id: id ?? this.id,
@@ -64,7 +64,7 @@ class Post extends Equatable {
       dateCreated: dateCreated ?? this.dateCreated,
       lastModified: lastModified ?? this.lastModified,
       comments: comments ?? this.comments,
-      status: status ?? this.status,
+      postStatus: postStatus ?? this.postStatus,
     );
   }
 
@@ -83,6 +83,6 @@ class Post extends Equatable {
         dateCreated,
         lastModified,
         comments,
-        status,
+        postStatus,
       ];
 }

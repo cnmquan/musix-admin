@@ -50,5 +50,16 @@ class PostsBloc extends Bloc<PostEvent, PostState> {
   }
 
   FutureOr<void> _changeStatusPost(
-      ChangingStatusPostEvent event, Emitter<PostState> emit) async {}
+      ChangingStatusPostEvent event, Emitter<PostState> emit) async {
+    emit(state.copyWith(
+      key: 'Modify post',
+      status: Status.loading,
+    ));
+    try {
+      await postRepo.changeStatusPost(event.postId, token!);
+      emit(state.copyWith(status: Status.success));
+    } catch (e) {
+      emit(state.copyWith(status: Status.error, error: e.toString()));
+    }
+  }
 }

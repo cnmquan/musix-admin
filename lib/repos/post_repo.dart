@@ -36,7 +36,7 @@ class PostRepo extends InitialRepo {
             comments: List<String>.from(postData["comments"].map((x) => x)),
             dateCreated: postData["dateCreated"],
             lastModified: postData["lastModified"],
-            status: postData["status"] ?? "ACTIVE",
+            postStatus: postData["postStatus"],
           );
           posts.add(post);
         }
@@ -49,8 +49,16 @@ class PostRepo extends InitialRepo {
     }
   }
 
-  FutureOr<bool> changeStatusPost(
-      String postId, String status, String token) async {
-    return true;
+  FutureOr<bool> changeStatusPost(String postId, String token) async {
+    final url = '${Env.serverUrl}/social/post/status/$postId';
+    try {
+      final response = await dio.put(url,
+          options: Options(headers: headerApplicationJson(token: token)));
+      final resData = response.data;
+      if (resData["data"]?["post"] != null) return true;
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 }
