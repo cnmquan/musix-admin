@@ -4,7 +4,7 @@ class User extends Equatable {
   final String id;
   final String username;
   final String password;
-  final String token;
+  final String? token;
   final String name;
 
   const User({
@@ -12,7 +12,7 @@ class User extends Equatable {
     required this.username,
     required this.password,
     required this.name,
-    required this.token,
+    this.token,
   });
 
   User copyWith({

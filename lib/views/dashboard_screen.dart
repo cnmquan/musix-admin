@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musix_admin/actions/actions.dart';
+import 'package:musix_admin/actions/report_post_event.dart';
 import 'package:musix_admin/blocs/blocs.dart';
+import 'package:musix_admin/blocs/report_post_bloc.dart';
 import 'package:musix_admin/views/post_manager_screen.dart';
+import 'package:musix_admin/views/report_post_screen.dart';
 import 'package:musix_admin/views/user_manager_screen.dart';
 import 'package:musix_admin/widget/appbar.dart';
 
@@ -34,9 +37,12 @@ class DashboardScreen extends StatelessWidget {
                 onTap: () {},
               ),
               DashboardCard(
-                title: 'Playlist Manager',
+                title: 'Report Post Manager',
                 image: 'assets/music_manage.jpg',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ReportPostScreen()));
+                },
               ),
               DashboardCard(
                 title: 'Post Manager',

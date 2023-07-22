@@ -7,6 +7,8 @@ import 'package:musix_admin/states/states.dart';
 import 'package:musix_admin/views/views.dart';
 import 'package:musix_admin/widget/custom_video_player.dart';
 
+import '../actions/report_post_event.dart';
+import '../blocs/report_post_bloc.dart';
 import '../widget/appbar.dart';
 
 class PostManagerScreen extends StatelessWidget {
@@ -58,6 +60,7 @@ class PostManagerScreen extends StatelessWidget {
                   DataColumn2(
                     label: Text('Comments'),
                   ),
+                  DataColumn2(label: Text("Status")),
                   DataColumn2(
                     label: SizedBox.shrink(),
                     fixedWidth: 20,
@@ -131,7 +134,21 @@ class PostManagerScreen extends StatelessWidget {
                       DataCell(
                         Text('${post.comments.length}'),
                       ),
-                      DataCell(Icon(Icons.book), onTap: () {
+                      DataCell(
+                        Text(
+                          post.postStatus.toUpperCase(),
+                          style: TextStyle(
+                              color: post.postStatus == "open"
+                                  ? Colors.green
+                                  : Colors.red),
+                        ),
+                      ),
+                      DataCell(const Icon(Icons.book), onTap: () {
+                        print("post id is ${post.id}");
+                        context
+                            .read<ReportPostBloc>()
+                            .add(GetReportsByPostIdEvent(post.id));
+
                         context
                             .read<CommentsBloc>()
                             .add(GetCommentByPostEvent(post.id));

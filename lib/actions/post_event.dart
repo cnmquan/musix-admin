@@ -7,8 +7,7 @@ class GetPostsEvent implements PostEvent {
 }
 
 class ChangingStatusPostEvent implements PostEvent {
-  final String status;
   final String postId;
 
-  const ChangingStatusPostEvent(this.postId, this.status);
+  const ChangingStatusPostEvent(this.postId);
 }
