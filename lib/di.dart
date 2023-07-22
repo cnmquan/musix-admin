@@ -8,4 +8,5 @@ FutureOr<void> registerDependency() async {
   getIt.registerLazySingleton<UserRepo>(() => UserRepo());
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo());
   getIt.registerLazySingleton<PostRepo>(() => PostRepo());
+  getIt.registerLazySingleton<CommentRepo>(() => CommentRepo());
 }
