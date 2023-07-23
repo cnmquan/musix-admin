@@ -41,11 +41,13 @@ class ReportPostRepo extends InitialRepo {
         final reportPostsData = resData["data"]["reportPosts"];
         for (var reportPostData in reportPostsData) {
           final reportPost = ReportPost.fromJson(reportPostData);
+          print("report is $reportPost");
           reportPosts.add(reportPost);
         }
       }
       return reportPosts;
     } catch (e) {
+      print("error occured $e");
       return reportPosts;
     }
   }
