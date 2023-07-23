@@ -33,9 +33,9 @@ class ReportPostBloc extends Bloc<ReportPostEvent, ReportPostState> {
     ));
     try {
       final reportPosts = await reportPostRepo.getReportPosts(token!);
-      print("reportPosts is $reportPosts");
       emit(state.copyWith(status: Status.success, reportPosts: reportPosts));
     } catch (e) {
+      print("error occured $e");
       emit(state.copyWith(
         status: Status.error,
         error: e.toString(),
@@ -53,6 +53,8 @@ class ReportPostBloc extends Bloc<ReportPostEvent, ReportPostState> {
     try {
       final reportPosts =
           await reportPostRepo.getReportsByPostId(token!, event.postId);
+      print("reportPosts is $reportPosts");
+
       emit(state.copyWith(status: Status.success, reportPosts: reportPosts));
     } catch (e) {
       emit(state.copyWith(

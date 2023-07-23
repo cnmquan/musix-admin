@@ -98,15 +98,22 @@ class _PostScreenState extends State<PostScreen>
                   ],
                 ),
               ),
-              Text(widget.post.content),
+              Text(
+                widget.post.content,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
                   widget.post.thumbnailUrl,
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   fit: BoxFit.fitWidth,
                 ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               CustomVideoPlayer(
                 dataUrl: widget.post.fileUrl,

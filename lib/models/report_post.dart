@@ -33,8 +33,8 @@ class ReportPost extends Equatable {
     final user = User(
       id: userRawData["id"],
       username: userRawData["username"],
-      password: userRawData["password"],
-      name: userRawData["profile"]?["fullName"],
+      password: userRawData["password"] ?? "",
+      name: userRawData["profile"]?["fullName"] ?? userRawData["username"],
     );
     return ReportPost(
         id: json["id"],
